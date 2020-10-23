@@ -1,10 +1,14 @@
 import { AppProps } from 'next/app'
-import { hydrateQueryCache } from '../lib'
+import { hydrateQueryCache, CacheProvider } from '../lib'
 
 const App = ({ pageProps, Component }: AppProps) => {
-  hydrateQueryCache(pageProps.queryCache)
+  const queryCache = hydrateQueryCache(pageProps.queryCache)
 
-  return <Component {...pageProps} />
+  return (
+    <CacheProvider queryCache={queryCache}>
+      <Component {...pageProps} />
+    </CacheProvider>
+  )
 }
 
 export default App

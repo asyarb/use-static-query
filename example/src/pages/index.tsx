@@ -1,18 +1,19 @@
-import { fetchPosts, Foo } from '../components/Foo'
-import { prefetchQuery, cacheQueryData } from '../lib'
+import { Foo } from '../components/Foo'
+import { serializeCache, fillQueryCache, createCache } from '../lib'
 
-function HomePage() {
+let HomePage = () => {
   return <Foo />
 }
 
 export default HomePage
 
-export async function getStaticProps() {
-  await prefetchQuery(fetchPosts, 'test')
+export let getStaticProps = async () => {
+  const queryCache = createCache()
+  await fillQueryCache(<HomePage />)
 
   return {
     props: {
-      queryCache: cacheQueryData(),
+      queryCache: serializeCache(queryCache),
     },
   }
 }

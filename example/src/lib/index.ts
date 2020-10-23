@@ -1,48 +1,42 @@
-import { useEffect, useReducer } from 'react'
+import { ReactNode, useContext, createContext } from 'react'
+import ssrPrepass from 'react-ssr-prepass'
 
 type CacheKey = string | number
+type Cache = Record<CacheKey, unknown>
 
-let cache: Record<CacheKey, unknown> = {}
+export function createCache() {
+  return {} as Cache
+}
 
-export function cacheQueryData() {
+export async function fillQueryCache(node: ReactNode): Promise<void> {
+  await ssrPrepass(node)
+}
+
+export function serializeCache(cache: Record<CacheKey, unknown>): string {
   return JSON.stringify(cache)
 }
 
-export function hydrateQueryCache(serializedCache?: string) {
+export function hydrateQueryCache(serializedCache?: string): Cache {
   if (!serializedCache) return {}
 
-  cache = JSON.parse(serializedCache)
+  return JSON.parse(serializedCache)
 }
 
-export async function prefetchQuery<T>(
-  promiseFn: () => Promise<T>,
-  cacheKey: CacheKey
-): Promise<void> {
-  let entry = cache[cacheKey]
-  if (entry) return
-
-  let value = await promiseFn()
-  if (!value) return // maybe throw?
-
-  cache[cacheKey] = value
-}
+const cacheContext = createContext({})
 
 export function useStaticQuery<T>(
   promiseFn: () => Promise<T>,
   cacheKey: CacheKey
-) {
-  const [, rerender] = useReducer((val) => !!val, false)
+): T {
+  const cache = useContext(cacheContext) as Cache
   const result = cache[cacheKey] as T
 
-  useEffect(() => {
-    if (result) return
-
+  // TODO: This is stupid hacky but it works. Maybe find alternative?
+  if (!result) {
     promiseFn()
       .then((val) => (cache[cacheKey] = val))
       .catch(() => {})
-
-    rerender()
-  }, [])
+  }
 
   return result
 }

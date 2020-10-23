@@ -14,7 +14,7 @@ export const Foo = () => {
 
   return (
     <div>
-      {posts.map((post) => (
+      {posts?.map((post) => (
         <div key={post.id}>{post.title}</div>
       ))}
     </div>
