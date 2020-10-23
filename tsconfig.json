@@ -1,0 +1,21 @@
+{
+  "include": ["./src", "./tests"],
+  "exclude": ["./node_modules"],
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "strict": true,
+    "strictNullChecks": true,
+    "moduleResolution": "node",
+    "noEmit": true,
+    "noImplicitAny": true
+  },
+
+  "ts-node": {
+    "transpileOnly": true,
+    "compilerOptions": {
+      "module": "CommonJS",
+    },
+    "include": ["tests/**/*"]
+  }
+}

@@ -1,0 +1,3 @@
+# use-static-query
+
+TODO
