@@ -8,7 +8,9 @@
     "strictNullChecks": true,
     "moduleResolution": "node",
     "noEmit": true,
-    "noImplicitAny": true
+    "noImplicitAny": true,
+    "jsx": "preserve",
+    "allowSyntheticDefaultImports": true
   },
 
   "ts-node": {

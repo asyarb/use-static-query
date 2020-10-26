@@ -1,6 +1,8 @@
 import { ReactNode } from 'react'
 import ssrPrepass from 'react-ssr-prepass'
 
+import { CacheProvider } from './context'
+
 export type CacheKey = string | number
 type Cache = Record<CacheKey, unknown>
 
@@ -20,7 +22,7 @@ export class QueryCache {
   }
 
   async preload(node: ReactNode): Promise<void> {
-    await ssrPrepass(node)
+    await ssrPrepass(<CacheProvider cache={this}>{node}</CacheProvider>)
   }
 
   serialize(): string {

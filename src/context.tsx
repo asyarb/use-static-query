@@ -2,8 +2,8 @@ import { createContext, useContext, ReactNode } from 'react'
 
 import { QueryCache } from './cache'
 
-const cacheContext = createContext(new QueryCache())
-const { Provider: CacheContextProiver } = cacheContext
+let cacheContext = createContext<QueryCache>(undefined!)
+let { Provider: CacheContextProiver } = cacheContext
 
 interface CacheProviderProps {
   children: ReactNode
@@ -14,6 +14,6 @@ export function CacheProvider({ cache, children }: CacheProviderProps) {
   return <CacheContextProiver value={cache}>{children}</CacheContextProiver>
 }
 
-export function useCache() {
+export function useCache(): QueryCache {
   return useContext(cacheContext)
 }
