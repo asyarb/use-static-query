@@ -8,7 +8,7 @@ export function useStaticQuery<T>(
   const cache = useCache()
   const result = cache.get(cacheKey) as T
 
-  if (!result) {
+  if (!result && typeof window === 'undefined') {
     promiseFn()
       .then((val) => cache.set(cacheKey, val))
       .catch(() => {})

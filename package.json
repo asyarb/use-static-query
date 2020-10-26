@@ -1,5 +1,5 @@
 {
-  "name": "use-static-query",
+  "name": "@asyarb/use-static-query",
   "version": "0.1.0",
   "description": "Data fetching hook tailored for use in static sites.",
   "repository": "https://github.com/asyarb/use-cached-query",
