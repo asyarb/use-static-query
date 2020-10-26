@@ -1,7 +1,7 @@
 import { CacheKey } from './cache'
 import { useCache } from './context'
 
-export function useCachedQuery<T>(
+export function useStaticQuery<T>(
   promiseFn: () => Promise<T>,
   cacheKey: CacheKey
 ): T {
@@ -10,9 +10,7 @@ export function useCachedQuery<T>(
 
   if (!result) {
     promiseFn()
-      .then((val) => {
-        cache.set(cacheKey, val)
-      })
+      .then((val) => cache.set(cacheKey, val))
       .catch(() => {})
   }
 

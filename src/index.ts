@@ -1,3 +1,3 @@
-export { useCachedQuery } from './hook'
+export { useStaticQuery } from './hook'
 export { CacheProvider } from './context'
-export { QueryCache } from './cache'
+export { StaticCache } from './cache'

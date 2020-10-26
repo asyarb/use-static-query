@@ -1,18 +1,18 @@
 import React from 'react'
-import { QueryCache } from './cache'
+import { StaticCache } from './cache'
 
-let cacheContext = React.createContext<QueryCache>(undefined!)
+let cacheContext = React.createContext<StaticCache>(undefined!)
 let { Provider: CacheContextProiver } = cacheContext
 
 interface CacheProviderProps {
   children: React.ReactNode
-  cache: QueryCache
+  cache: StaticCache
 }
 
 export function CacheProvider({ cache, children }: CacheProviderProps) {
   return <CacheContextProiver value={cache}>{children}</CacheContextProiver>
 }
 
-export function useCache(): QueryCache {
+export function useCache(): StaticCache {
   return React.useContext(cacheContext)
 }

@@ -6,11 +6,11 @@ import { CacheProvider } from './context'
 export type CacheKey = string | number
 type Cache = Record<CacheKey, unknown>
 
-export class QueryCache {
-  static fromSerializedCache(serializedCache?: string): QueryCache {
-    if (!serializedCache) return new QueryCache()
+export class StaticCache {
+  static fromSerializedCache(serializedCache?: string): StaticCache {
+    if (!serializedCache) return new StaticCache()
 
-    return new QueryCache(JSON.parse(serializedCache))
+    return new StaticCache(JSON.parse(serializedCache))
   }
 
   private cache: Cache = {}
