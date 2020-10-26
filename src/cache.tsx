@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import * as React from 'react'
 import ssrPrepass from 'react-ssr-prepass'
 
 import { CacheProvider } from './context'
@@ -21,7 +21,7 @@ export class QueryCache {
     this.cache = initialCache
   }
 
-  async preload(node: ReactNode): Promise<void> {
+  async preload(node: React.ReactNode): Promise<void> {
     await ssrPrepass(<CacheProvider cache={this}>{node}</CacheProvider>)
   }
 

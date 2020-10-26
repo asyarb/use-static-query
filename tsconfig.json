@@ -9,7 +9,8 @@
     "moduleResolution": "node",
     "noEmit": true,
     "noImplicitAny": true,
-    "jsx": "preserve",
+    "jsx": "react",
+    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true
   },
 }
