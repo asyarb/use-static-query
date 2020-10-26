@@ -7,7 +7,7 @@ in static sites.
 - [Usage](#usage)
 - [Motiviation](#motiviation)
   - [Is this like Gatsby's `useStaticQuery`?](#is-this-like-gatsbys-usestaticquery)
-  - [Isn't this also like `useQuery`?](#isnt-this-also-like-usequery)
+  - [Isn't this also like React Query's `useQuery`?](#isnt-this-also-like-react-querys-usequery)
 - [API](#api)
   - [`useStaticQuery()`](#usestaticquery)
     - [Arguments](#arguments)
@@ -159,7 +159,7 @@ has key differences:
 - Not reliant on compile-time juju.
 - Allows for the use of variables via closures.
 
-### Isn't this also like `useQuery`?
+### Isn't this also like React Query's `useQuery`?
 
 Yes! The API was primarily inspired by React Query, but was tailored down for
 use in SSG. Technically, you could use React Query in a very similar way with
