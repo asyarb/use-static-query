@@ -6,8 +6,9 @@ import { useStaticQuery, StaticCache, CacheProvider } from '../src'
 
 test('preloading works', async () => {
   let fetchData = async () => 'data'
+
   let Component = () => {
-    let data = useStaticQuery(fetchData, 'key')
+    let data = useStaticQuery(fetchData, 'key', { disableRuntime: false })
 
     return <div>{data}</div>
   }
@@ -27,7 +28,9 @@ test('preloading works', async () => {
 test('currying variables works', async () => {
   let fetchData = (value: string) => async () => value
   let Component = ({ value }: { value: string }) => {
-    let data = useStaticQuery(fetchData(value), 'currying')
+    let data = useStaticQuery(fetchData(value), 'currying', {
+      disableRuntime: false,
+    })
 
     return <div>{data}</div>
   }

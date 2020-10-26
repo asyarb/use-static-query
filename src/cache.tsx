@@ -29,8 +29,8 @@ export class StaticCache {
     return JSON.stringify(this.cache)
   }
 
-  get<T>(key: CacheKey): T {
-    return this.cache[key] as T
+  get<T>(key: CacheKey): T | undefined {
+    return this.cache[key] as T | undefined
   }
 
   set<T>(key: CacheKey, value: T): void {
