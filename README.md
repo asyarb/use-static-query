@@ -87,7 +87,7 @@ export async function getStaticProps() {
 
   return {
     props: {
-      // Here, we serialize our cache and sent it client-side.
+      // Here, we serialize our cache and send it client-side.
       serializedCache: cache.serialize(),
     },
   }
