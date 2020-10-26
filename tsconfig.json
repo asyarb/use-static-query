@@ -12,12 +12,4 @@
     "jsx": "preserve",
     "allowSyntheticDefaultImports": true
   },
-
-  "ts-node": {
-    "transpileOnly": true,
-    "compilerOptions": {
-      "module": "CommonJS",
-    },
-    "include": ["tests/**/*"]
-  }
 }
