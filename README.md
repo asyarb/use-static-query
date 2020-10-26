@@ -228,14 +228,14 @@ of your app. Provides access to the cache to callers of
 
 An instance of `StaticCache` has the following properties and methods:
 
-- `preload(node: React.ReactNode)`
-- `serialize()`
-- `get(key: string | number)`
-- `set(key: string | number, value: T)`
+- [`preload(node: React.ReactNode)`](#staticcachepreload)
+- [`serialize()`](#staticcacheserialize)
+- [`get(key: string | number)`](#staticcacheget)
+- [`set(key: string | number, value: T)`](#staticcacheset)
 
 `StaticCache` also has the following static methods available:
 
-- `fromSerializedCache(serializedCache?: string)`
+- [`fromSerializedCache(serializedCache?: string)`](#staticcachefromserializedcache)
 
 ### `staticCache.preload`
 
