@@ -154,7 +154,7 @@ comparison:
 - No need to prevent refetching at runtime if that isn't what you want.
 - Smaller bundle size, due to not having to support as many features.
 
-If you're writing an app that _does_ have a lot of dynamic reads & writes,
+If you're writing an app that _does_ have runtime reads & writes,
 you should definitely choose a solution like React Query instead of this.
 
 ## API
