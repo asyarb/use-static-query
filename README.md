@@ -13,7 +13,9 @@ in static sites.
 
 ## Installation
 
-```bash # npm npm i @asyarb/use-static-query
+```bash
+# npm
+npm i @asyarb/use-static-query
 
 # yarn
 yarn add @asyarb/use-static-query
