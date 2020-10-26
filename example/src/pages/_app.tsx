@@ -1,11 +1,11 @@
 import { AppProps } from 'next/app'
-import { hydrateQueryCache, CacheProvider } from '../lib'
+import { CacheProvider, QueryCache } from '../lib'
 
 const App = ({ pageProps, Component }: AppProps) => {
-  const queryCache = hydrateQueryCache(pageProps.queryCache)
+  const cache = QueryCache.fromSerializedCache(pageProps.cache)
 
   return (
-    <CacheProvider queryCache={queryCache}>
+    <CacheProvider cache={cache}>
       <Component {...pageProps} />
     </CacheProvider>
   )

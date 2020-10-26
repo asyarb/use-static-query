@@ -1,4 +1,4 @@
-import { useStaticQuery } from '../lib'
+import { useCachedQuery } from '../lib'
 
 export const fetchPosts = async () => {
   return [
@@ -10,7 +10,7 @@ export const fetchPosts = async () => {
 }
 
 export const Foo = () => {
-  const posts = useStaticQuery(fetchPosts, 'test')
+  const posts = useCachedQuery(fetchPosts, 'posts')
 
   return (
     <div>

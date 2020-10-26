@@ -1,5 +1,5 @@
 import { Foo } from '../components/Foo'
-import { serializeCache, fillQueryCache, createCache } from '../lib'
+import { CacheProvider, QueryCache } from '../lib'
 
 let HomePage = () => {
   return <Foo />
@@ -8,12 +8,16 @@ let HomePage = () => {
 export default HomePage
 
 export let getStaticProps = async () => {
-  const queryCache = createCache()
-  await fillQueryCache(<HomePage />)
+  const cache = new QueryCache()
+  await cache.preload(
+    <CacheProvider cache={cache}>
+      <HomePage />
+    </CacheProvider>
+  )
 
   return {
     props: {
-      queryCache: serializeCache(queryCache),
+      cache: cache.serialize(),
     },
   }
 }
