@@ -4,7 +4,7 @@ A framework-agnostic data fetching hook and cache solution tailored for use
 in static sites.
 
 **NOTE**: This library has not been released yet and is still being actively
-\*developed. The API detailed below may change at any time.
+developed. The API detailed below may change at any time.
 
 - [Installation](#installation)
 - [Usage](#usage)
