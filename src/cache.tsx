@@ -6,6 +6,8 @@ import { CacheProvider } from './context'
 export type CacheKey = string | number
 type Cache = Record<CacheKey, unknown>
 
+const isPrepass = Symbol()
+
 export class StaticCache {
   static fromSerializedCache(serializedCache?: string): StaticCache {
     if (!serializedCache) return new StaticCache()
@@ -13,13 +15,20 @@ export class StaticCache {
     return new StaticCache(JSON.parse(serializedCache))
   }
 
-  constructor(
-    private cache: Cache = {},
-    private concurrentPromises: Record<CacheKey, Promise<unknown>> = {}
-  ) {}
+  private [isPrepass] = false
+  private concurrentPromises: Record<CacheKey, Promise<unknown>> = {}
+
+  constructor(private cache: Cache = {}) {}
 
   async preload(node: React.ReactNode): Promise<void> {
+    if (typeof window !== 'undefined')
+      throw new Error(
+        'StaticCache.prototype.preload must only be called during server-side rendering. Move your cache preloading to an SSR-only function.'
+      )
+
+    this[isPrepass] = true
     await ssrPrepass(<CacheProvider cache={this}>{node}</CacheProvider>)
+    this[isPrepass] = false
   }
 
   serialize(): string {
@@ -36,6 +45,10 @@ export class StaticCache {
 
   has(key: CacheKey): boolean {
     return this.cache.hasOwnProperty(key)
+  }
+
+  isPrepass(): boolean {
+    return this[isPrepass]
   }
 
   startPromiseFn<T>(cacheKey: CacheKey, promiseFn: () => Promise<T>): void {
