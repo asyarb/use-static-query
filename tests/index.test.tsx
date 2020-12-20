@@ -4,8 +4,14 @@ import '@testing-library/jest-dom'
 
 import { useStaticQuery, StaticCache, CacheProvider } from '../src'
 
+const delay = (ms: number): Promise<void> =>
+  new Promise((res) => setTimeout(() => res(void 0), ms))
+
 test('preloading works', async () => {
-  let fetchData = async () => 'data'
+  let fetchData = async () => {
+    await delay(0)
+    return 'data'
+  }
 
   let Component = () => {
     let data = useStaticQuery(fetchData, 'key', { disableRuntime: false })
