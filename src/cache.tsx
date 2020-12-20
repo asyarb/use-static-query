@@ -39,8 +39,7 @@ export class StaticCache {
   }
 
   startPromiseFn<T>(cacheKey: CacheKey, promiseFn: () => Promise<T>): void {
-    const existingConcurentPromise = this.concurrentPromises[cacheKey]
-    if (existingConcurentPromise) return
+    if (this.isPromiseFnRunning(cacheKey)) return
 
     this.concurrentPromises[cacheKey] = new Promise<T>(async (res) => {
       // Get the async return value of the provided function.
