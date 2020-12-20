@@ -46,12 +46,12 @@ export class StaticCache {
       // Get the async return value of the provided function.
       const value = await promiseFn()
 
+      // Set the resolved value to the serializable global cache.
+      this.set(cacheKey, value)
+
       // Remove this Promise from the CONCURRENT_PROMISES store, effectively
       // stating we can stop suspending the render function.
       delete this.concurrentPromises[cacheKey]
-
-      // Set the resolved value to the serializable global cache.
-      this.set(cacheKey, value)
 
       res(value)
     })
