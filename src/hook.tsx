@@ -11,16 +11,19 @@ export function useStaticQuery<T>(
   { disableRuntime = true }: Options = {}
 ): T {
   let cache = useCache()
-  let result = cache.get<T>(cacheKey)
+  let hasCachedValue = cache.has(cacheKey)
 
-  let shouldFetchServerSide = !result && typeof window === 'undefined'
-  let shouldFetchClientSide = !disableRuntime && !result
+  let shouldFetchServerSide = !hasCachedValue && typeof window === 'undefined'
+  let shouldFetchClientSide = !hasCachedValue && !disableRuntime
 
   if (shouldFetchServerSide || shouldFetchClientSide) {
-    promiseFn()
-      .then((val) => cache.set(cacheKey, val))
-      .catch(() => {})
+    if (!cache.isPromiseFnRunning(cacheKey))
+      cache.startPromiseFn(cacheKey, promiseFn)
+
+    const concurrentPromiseFn = cache.getConcurrentPromiseFn(cacheKey)
+
+    if (concurrentPromiseFn) throw concurrentPromiseFn
   }
 
-  return result as T
+  return cache.get(cacheKey) as T
 }
