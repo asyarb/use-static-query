@@ -49,7 +49,7 @@ export class StaticCache {
       // Set the resolved value to the serializable global cache.
       this.set(cacheKey, value)
 
-      // Remove this Promise from the CONCURRENT_PROMISES store, effectively
+      // Remove this Promise from the concurrent Promises store, effectively
       // stating we can stop suspending the render function.
       delete this.concurrentPromises[cacheKey]
 
