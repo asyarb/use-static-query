@@ -9,7 +9,7 @@
   "main": "dist/index.js",
   "module": "dist/index.module.js",
   "unpkg": "dist/index.umd.js",
-  "types": "dist/src/index.d.ts",
+  "types": "dist/src/src/index.d.ts",
   "files": [
     "dist",
     "README.md"
