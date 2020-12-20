@@ -19,7 +19,7 @@ async function simulateSSR(f: () => unknown): Promise<void> {
 
 test('preloading works', async () => {
   let fetchData = async () => {
-    await delay(300)
+    await delay(100)
     return 'data'
   }
   let Component = () => {
@@ -42,7 +42,7 @@ test('preloading works', async () => {
 
 test('currying variables works', async () => {
   let fetchData = (value: string) => async () => {
-    await delay(300)
+    await delay(100)
     return value
   }
   let Component = ({ value }: { value: string }) => {
@@ -72,7 +72,7 @@ test('can initialize with a serialized cache', async () => {
   let serializedCache = _cache.serialize()
 
   let fetchData = async () => {
-    await delay(300)
+    await delay(100)
     return `unserialized-${serializedValue}`
   }
   let Component = () => {
