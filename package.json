@@ -20,6 +20,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "react-is": "^17.0.1",
     "react-ssr-prepass": "^1.2.1"
   },
   "devDependencies": {
