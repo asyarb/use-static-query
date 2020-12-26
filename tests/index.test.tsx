@@ -4,17 +4,32 @@ import '@testing-library/jest-dom'
 
 import { useStaticQuery, StaticCache, CacheProvider } from '../src'
 
-test('preloading works', async () => {
-  let fetchData = async () => 'data'
+function delay(ms: number): Promise<void> {
+  return new Promise((res) => setTimeout(() => res(void 0), ms))
+}
 
+async function simulateSSR(f: () => unknown): Promise<void> {
+  let windowSpy = jest.spyOn(window, 'window', 'get')
+
+  // @ts-expect-error - Purposely not returning a Window
+  windowSpy.mockImplementation(() => undefined)
+  await f()
+  windowSpy.mockRestore()
+}
+
+test('preloading works', async () => {
+  let fetchData = async () => {
+    await delay(100)
+    return 'data'
+  }
   let Component = () => {
-    let data = useStaticQuery(fetchData, 'key', { disableRuntime: false })
+    let data = useStaticQuery(fetchData, 'key')
 
     return <div>{data}</div>
   }
-
   let cache = new StaticCache()
-  await cache.preload(<Component />)
+
+  await simulateSSR(() => cache.preload(<Component />))
 
   let { getByText } = render(
     <CacheProvider cache={cache}>
@@ -26,18 +41,19 @@ test('preloading works', async () => {
 })
 
 test('currying variables works', async () => {
-  let fetchData = (value: string) => async () => value
+  let fetchData = (value: string) => async () => {
+    await delay(100)
+    return value
+  }
   let Component = ({ value }: { value: string }) => {
-    let data = useStaticQuery(fetchData(value), 'currying', {
-      disableRuntime: false,
-    })
+    let data = useStaticQuery(fetchData(value), 'currying')
 
     return <div>{data}</div>
   }
-
-  let cache = new StaticCache()
   let ssrValue = 'some-data'
-  await cache.preload(<Component value={ssrValue} />)
+  let cache = new StaticCache()
+
+  await simulateSSR(() => cache.preload(<Component value={ssrValue} />))
 
   let { getByText } = render(
     <CacheProvider cache={cache}>
@@ -46,4 +62,33 @@ test('currying variables works', async () => {
   )
 
   expect(getByText(ssrValue)).toBeInTheDocument()
+})
+
+test('can initialize with a serialized cache', async () => {
+  let key = 'key'
+  let serializedValue = 'value'
+  let _cache = new StaticCache()
+  _cache.set(key, serializedValue)
+  let serializedCache = _cache.serialize()
+
+  let fetchData = async () => {
+    await delay(100)
+    return `unserialized-${serializedValue}`
+  }
+  let Component = () => {
+    let data = useStaticQuery(fetchData, key)
+
+    return <div>{data}</div>
+  }
+  let cache = StaticCache.fromSerializedCache(serializedCache)
+
+  await simulateSSR(() => cache.preload(<Component />))
+
+  let { getByText } = render(
+    <CacheProvider cache={cache}>
+      <Component />
+    </CacheProvider>
+  )
+
+  expect(getByText(serializedValue)).toBeInTheDocument()
 })
