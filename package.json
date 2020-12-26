@@ -7,7 +7,7 @@
   "license": "MIT",
   "main": "dist/use-static-query.js",
   "module": "dist/use-static-query.module.js",
-  "types": "dist/src/src/use-static-query.d.ts",
+  "types": "dist/use-static-query.d.ts",
   "exports": {
     ".": "./dist/index.modern.js",
     "./next": "./dist/next.modern.js"
