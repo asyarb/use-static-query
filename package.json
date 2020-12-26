@@ -1,13 +1,13 @@
 {
   "name": "@asyarb/use-static-query",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Data fetching hook tailored for use in static sites.",
   "repository": "https://github.com/asyarb/use-cached-query",
   "author": "Anthony Yarbrough <asyarb@hawaii.edu>",
   "license": "MIT",
-  "main": "dist/index.js",
-  "module": "dist/index.module.js",
-  "types": "dist/src/src/index.d.ts",
+  "main": "dist/use-static-query.js",
+  "module": "dist/use-static-query.module.js",
+  "types": "dist/src/src/use-static-query.d.ts",
   "exports": {
     ".": "./dist/index.modern.js",
     "./next": "./dist/next.modern.js"
@@ -17,8 +17,9 @@
     "README.md"
   ],
   "scripts": {
-    "build": "microbundle src/index.ts src/next.tsx --jsx React.createElement --format modern,es,cjs",
-    "dev": "microbundle watch src/index.ts src/next.tsx --jsx React.createElement",
+    "prebuild": "rimraf dist",
+    "build": "microbundle src/index.ts src/next.tsx --jsx React.createElement --format modern,es,cjs -o dist",
+    "postbuild": "cp ./dist/src/*.ts ./dist && rimraf ./dist/src && rimraf ./dist/tests && mv ./dist/index.d.ts ./dist/use-static-query.d.ts",
     "test": "jest",
     "prepare": "yarn build",
     "release": "standard-version"
@@ -44,6 +45,7 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-ssr-prepass": "^1.2.1",
+    "rimraf": "^3.0.2",
     "standard-version": "^9.0.0",
     "ts-jest": "^26.4.4",
     "typescript": "^4.1.3"
