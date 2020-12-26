@@ -1,6 +1,6 @@
 {
   "name": "@asyarb/use-static-query",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Data fetching hook tailored for use in static sites.",
   "repository": "https://github.com/asyarb/use-cached-query",
   "author": "Anthony Yarbrough <asyarb@hawaii.edu>",

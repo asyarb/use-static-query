@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.3](https://github.com/asyarb/use-cached-query/compare/v0.1.2...v0.1.3) (2020-12-26)
+
+
+### Bug Fixes
+
+* typings ([1fd965b](https://github.com/asyarb/use-cached-query/commit/1fd965b28bea0da28dc1c3106ae4006e4f3e34d5))
+
 ### [0.1.2](https://github.com/asyarb/use-cached-query/compare/v0.1.1...v0.1.2) (2020-12-26)
 
 ### 0.1.1 (2020-12-26)
