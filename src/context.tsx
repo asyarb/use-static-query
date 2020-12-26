@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { StaticCache } from './cache'
 
 let cacheContext = React.createContext<StaticCache>(undefined!)
