@@ -2,7 +2,12 @@ import React from 'react'
 import { render } from '@testing-library/react'
 import '@testing-library/jest-dom'
 
-import { useStaticQuery, StaticCache, CacheProvider } from '../src'
+import {
+  useStaticQuery,
+  StaticCache,
+  CacheProvider,
+  preloadStaticCache,
+} from '../src'
 
 function delay(ms: number): Promise<void> {
   return new Promise((res) => setTimeout(() => res(void 0), ms))
@@ -29,7 +34,7 @@ test('preloading works', async () => {
   }
   let cache = new StaticCache()
 
-  await simulateSSR(() => cache.preload(<Component />))
+  await simulateSSR(() => preloadStaticCache(cache, <Component />))
 
   let { getByText } = render(
     <CacheProvider cache={cache}>
@@ -53,7 +58,9 @@ test('currying variables works', async () => {
   let ssrValue = 'some-data'
   let cache = new StaticCache()
 
-  await simulateSSR(() => cache.preload(<Component value={ssrValue} />))
+  await simulateSSR(() =>
+    preloadStaticCache(cache, <Component value={ssrValue} />)
+  )
 
   let { getByText } = render(
     <CacheProvider cache={cache}>
@@ -82,7 +89,7 @@ test('can initialize with a serialized cache', async () => {
   }
   let cache = StaticCache.fromSerializedCache(serializedCache)
 
-  await simulateSSR(() => cache.preload(<Component />))
+  await simulateSSR(() => preloadStaticCache(cache, <Component />))
 
   let { getByText } = render(
     <CacheProvider cache={cache}>
