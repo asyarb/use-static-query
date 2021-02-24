@@ -1,35 +1,22 @@
-import * as React from 'react'
-import ssrPrepass from 'react-ssr-prepass'
-
-import { CacheProvider } from './context'
-
 export type CacheKey = string | number
 type Cache = Record<CacheKey, unknown>
 
-const isPrepass = Symbol()
+export const isPrepass = Symbol()
 
 export class StaticCache {
   static fromSerializedCache(serializedCache?: string): StaticCache {
-    if (!serializedCache) return new StaticCache()
+    if (!serializedCache)
+      throw new Error(
+        'Unable to de-serialize a valid cache. If this is unexpected, check to ensure you are setting up your cache at SSR-time.'
+      )
 
     return new StaticCache(JSON.parse(serializedCache))
   }
 
-  private [isPrepass] = false
+  [isPrepass] = false
   private concurrentPromises: Record<CacheKey, Promise<unknown>> = {}
 
   constructor(private cache: Cache = {}) {}
-
-  async preload(node: React.ReactNode): Promise<void> {
-    if (typeof window !== 'undefined')
-      throw new Error(
-        'StaticCache.prototype.preload must only be called during server-side rendering. Move your cache preloading to an SSR-only function.'
-      )
-
-    this[isPrepass] = true
-    await ssrPrepass(<CacheProvider cache={this}>{node}</CacheProvider>)
-    this[isPrepass] = false
-  }
 
   serialize(): string {
     return JSON.stringify(this.cache)
