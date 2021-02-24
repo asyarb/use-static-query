@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.2.0](https://github.com/asyarb/use-cached-query/compare/v0.1.3...v0.2.0) (2021-02-24)
+
+
+### ⚠ BREAKING CHANGES
+
+* StaticCache.preload is no longer available. Use `preloadStaticCache` instead.
+
+### Features
+
+* move preload to pure fn for tree-shaking ([0056ed9](https://github.com/asyarb/use-cached-query/commit/0056ed9a0028f13e235bdf8440a8c6a6a251d9f6))
+
+
+### Bug Fixes
+
+* use side-effect fn for next export ([85dd104](https://github.com/asyarb/use-cached-query/commit/85dd10402df4c918c894e2ba6581214d43c70a88))
+
 ### [0.1.3](https://github.com/asyarb/use-cached-query/compare/v0.1.2...v0.1.3) (2020-12-26)
 
 
