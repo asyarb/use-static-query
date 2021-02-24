@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.3.0](https://github.com/asyarb/use-cached-query/compare/v0.2.0...v0.3.0) (2021-02-24)
+
+
+### ⚠ BREAKING CHANGES
+
+* preloadStaticCache is now exported from /preload
+
+### Features
+
+* separate entry for preload ([ae1cf7a](https://github.com/asyarb/use-cached-query/commit/ae1cf7aec852c9d44c97405f5279e4cceecadb4b))
+
 ## [0.2.0](https://github.com/asyarb/use-cached-query/compare/v0.1.3...v0.2.0) (2021-02-24)
 
 
