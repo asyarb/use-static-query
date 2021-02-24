@@ -18,7 +18,7 @@
   ],
   "scripts": {
     "prebuild": "rimraf dist",
-    "build": "microbundle src/index.ts src/next.tsx --jsx React.createElement --format modern,es,cjs -o dist",
+    "build": "microbundle src/index.ts src/next.tsx src/preload.tsx --jsx React.createElement --format modern,es,cjs -o dist",
     "postbuild": "cp ./dist/src/*.ts ./dist && rimraf ./dist/src && rimraf ./dist/tests && mv ./dist/index.d.ts ./dist/use-static-query.d.ts",
     "watch": "yarn build --watch --no-compress",
     "test": "jest",

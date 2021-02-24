@@ -2,12 +2,8 @@ import React from 'react'
 import { render } from '@testing-library/react'
 import '@testing-library/jest-dom'
 
-import {
-  useStaticQuery,
-  StaticCache,
-  CacheProvider,
-  preloadStaticCache,
-} from '../src'
+import { useStaticQuery, StaticCache, CacheProvider } from '../src'
+import { preloadStaticCache } from '../src/preload'
 
 function delay(ms: number): Promise<void> {
   return new Promise((res) => setTimeout(() => res(void 0), ms))
