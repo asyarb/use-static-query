@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { GetStaticProps } from 'next'
 import { StaticCache } from './cache'
+import { preloadStaticCache } from './preload'
 
 export type WithSerializedStaticCache<T> = T & {
   serializedStaticCache: ReturnType<StaticCache['serialize']>
@@ -22,8 +23,7 @@ export function withStaticCache<
     if ('props' in result) {
       const props = result.props
 
-      await cache.preload(<Tree {...props} />)
-
+      await preloadStaticCache(cache, <Tree {...props} />)
       const serializedCache = cache.serialize()
 
       return {
